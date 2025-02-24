@@ -4,8 +4,10 @@ import { loginTypes } from "./types/types";
 import { loginService } from "./services";
 import Image from "next/image";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<loginTypes>({
     email: "",
     password: "",
@@ -13,13 +15,16 @@ const Login = () => {
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const response = await loginService(formData);
       if (response?.status === "success") {
         localStorage.setItem("access_token", response?.data?.access_token);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -101,10 +106,11 @@ const Login = () => {
 
             {/* Sign In Button */}
             <button
+              disabled={isLoading}
               onClick={(e) => submitHandler(e)}
               className="w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition duration-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              Sign In
+              {!isLoading ? "Sign In" : "Loading..."}
             </button>
           </div>
 

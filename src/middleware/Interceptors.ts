@@ -40,21 +40,6 @@ interceptorInstance.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    const { status, config } = error.response;
-
-    switch (status) {
-      case 401:
-        if (config.url !== "/auth/signIn") {
-          window.location.replace("/");
-        }
-        break;
-      case 404:
-        console.warn("API endpoint not found:", config.url);
-        break;
-      default:
-        console.error(`API Error [${status}]:`, error.message);
-    }
-
     return Promise.reject(error);
   }
 );
