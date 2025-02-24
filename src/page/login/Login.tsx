@@ -5,8 +5,10 @@ import { loginService } from "./services";
 import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<loginTypes>({
     email: "",
@@ -20,8 +22,9 @@ const Login = () => {
       const response = await loginService(formData);
       if (response?.status === "success") {
         localStorage.setItem("access_token", response?.data?.access_token);
+        router.push("/");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error(error?.response?.data?.message);
     } finally {
       setIsLoading(false);

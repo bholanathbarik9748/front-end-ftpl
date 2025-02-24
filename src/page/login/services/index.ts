@@ -5,7 +5,7 @@ import { loginTypes } from "@/page/login/types/types";
  * Handles user login by sending credentials to the authentication API.
  *
  * @param {loginTypes} fromData - The user login details (email and password).
- * @returns {Promise<any>} - The response data from the API.
+ * @returns {Promise<unknown>} - The response data from the API.
  * @throws {Error} - Throws an error if the login request fails.
  */
 export const loginService = async (fromData: loginTypes) => {
