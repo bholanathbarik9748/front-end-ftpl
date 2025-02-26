@@ -6,6 +6,7 @@ import { signUpTypes } from "./types/types";
 import toast from "react-hot-toast";
 import { decryptOTP } from "@/utils/decryptOtp";
 import { useRouter } from "next/navigation";
+import BtnLoadingAnimation from "@/componets/btnLoadingAnimation/btnLoadingAnimation";
 
 const SignUp = () => {
   const router = useRouter();
@@ -259,9 +260,9 @@ const SignUp = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200"
+                  className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md flex items-center justify-center gap-2"
                 >
-                  {!isLoading ? "Sign Up" : "Loading..."}
+                  {!isLoading ? "Sign Up" : <BtnLoadingAnimation />}
                 </button>
               </div>
             ) : (
@@ -270,9 +271,9 @@ const SignUp = () => {
                   type="button"
                   disabled={isLoading}
                   onClick={handleSendOtp}
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200"
+                  className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md flex items-center justify-center gap-2"
                 >
-                  {!isLoading ? "Verify email" : "Loading..."}
+                  {!isLoading ? "Verify email" : <BtnLoadingAnimation />}
                 </button>
               </div>
             )}
