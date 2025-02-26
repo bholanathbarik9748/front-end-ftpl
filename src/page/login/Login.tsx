@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import BtnLoadingAnimation from "@/componets/btnLoadingAnimation/btnLoadingAnimation";
 
 const Login = () => {
   const router = useRouter();
@@ -111,9 +112,9 @@ const Login = () => {
             <button
               disabled={isLoading}
               onClick={(e) => submitHandler(e)}
-              className="w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition duration-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md flex items-center justify-center gap-2"
             >
-              {!isLoading ? "Sign In" : "Loading..."}
+              {!isLoading ? "Sign In" : <BtnLoadingAnimation />}
             </button>
           </div>
 
