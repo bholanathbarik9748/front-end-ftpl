@@ -50,7 +50,6 @@ const SignUp = () => {
       try {
         const response = await otpVerification({ email: formData.email });
         const decryptedOtp = await decryptOTP(response?.data?.otp_token);
-        console.log(decryptedOtp);
         setOtpData(decryptedOtp);
         if (response?.status === "success") {
           toast.success("Otp send successfully");
