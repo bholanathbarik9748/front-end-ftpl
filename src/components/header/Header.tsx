@@ -12,6 +12,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import mainLogo from "../../assets/main_logo.png";
+import { useRouter } from "next/navigation";
 
 const categoryList = [
   "A4 Label Sheet",
@@ -23,6 +24,7 @@ const categoryList = [
 ];
 
 const Header = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -138,7 +140,10 @@ const Header = () => {
           {isLoggedIn ? (
             <FiUser className="text-2xl text-gray-700 hover:text-blue-500 cursor-pointer transition" />
           ) : (
-            <button className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">
+            <button
+              onClick={() => router.push("/login")}
+              className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
+            >
               Login
             </button>
           )}
