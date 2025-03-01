@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import BtnLoadingAnimation from "@/componets/btnLoadingAnimation/btnLoadingAnimation";
+import BtnLoadingAnimation from "@/components/btnLoadingAnimation/btnLoadingAnimation";
 import { forgotPasswordChangePassword } from "./services";
 
 const ForgotPassword = () => {
@@ -30,7 +30,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white vie-blue-100 to-blue-200 px-4">
       <div className="w-full max-w-md">
         <div className="relative transform overflow-hidden rounded-xl bg-white p-8 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl border border-gray-200">
           {/* Logo */}
@@ -69,7 +69,7 @@ const ForgotPassword = () => {
                 value={email}
                 required
                 autoComplete="email"
-                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -77,7 +77,7 @@ const ForgotPassword = () => {
             {/* Submit Button */}
             <button
               onClick={submitHandler}
-              className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md flex items-center justify-center gap-2"
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md flex items-center justify-center gap-2"
               disabled={isLoading}
             >
               {isLoading ? <BtnLoadingAnimation /> : "Send Reset Link"}

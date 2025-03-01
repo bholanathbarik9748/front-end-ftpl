@@ -1,17 +1,17 @@
-import { Banner } from "@/componets/banner/Banner";
-import FeaturedProducts from "@/componets/featuredProducts/FeaturedProducts";
-import { Footer } from "@/componets/footer/Footer";
-import { Header } from "@/componets/header/Header";
-import { NewArrivals } from "@/componets/newArrivals/NewArrivals";
-import { ProductCategories } from "@/componets/productCategories/ProductCategories";
-import { ThermalRibbons } from "@/componets/thermalRibbons/ThermalRibbons";
-import { TopSelling } from "@/componets/topSelling/TopSelling";
+import { Banner } from "@/components/banner/Banner";
+import FeaturedProducts from "@/components/featuredProducts/FeaturedProducts";
+import { Footer } from "@/components/footer/Footer";
+import Header from "@/components/header/Header";
+import { NewArrivals } from "@/components/newArrivals/NewArrivals";
+import { ProductCategories } from "@/components/productCategories/ProductCategories";
+import { ThermalRibbons } from "@/components/thermalRibbons/ThermalRibbons";
+import { TopSelling } from "@/components/topSelling/TopSelling";
 import React from "react";
 
 const Home = () => {
   return (
     <>
-     <Header />
+      <Header />
       <Banner />
       <ProductCategories />
       <TopSelling />

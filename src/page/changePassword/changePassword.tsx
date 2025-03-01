@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
-import BtnLoadingAnimation from "@/componets/btnLoadingAnimation/btnLoadingAnimation";
+import BtnLoadingAnimation from "@/components/btnLoadingAnimation/btnLoadingAnimation";
 import { useParams } from "next/navigation";
 import { changePasswordTypes } from "./types/types";
 import { sendEmailForgotPassword } from "./services";
@@ -56,18 +56,15 @@ const ChangePassword = () => {
       if (response.status === "success") {
         toast.success("Your password has been updated successfully!");
       }
-    } catch (error: any) {
-      toast.error(
-        error.response?.data?.message ||
-          "An unexpected error occurred. Please try again."
-      );
+    } catch (error) {
+      toast.error(error.response?.data?.message);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white vie-blue-100 to-blue-200 px-4">
       <div className="w-full max-w-md">
         <div className="relative transform overflow-hidden rounded-xl bg-white p-8 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl border border-gray-200">
           {/* Logo */}
@@ -104,7 +101,7 @@ const ChangePassword = () => {
                 type="password"
                 required
                 autoComplete="new-password"
-                className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 value={formData.newPassword}
                 onChange={handleChange}
               />
@@ -129,7 +126,7 @@ const ChangePassword = () => {
                     passwordMatch === false
                       ? "border-red-500"
                       : "border-gray-300"
-                  } bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm`}
+                  } bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm`}
                   value={formData.confirmPassword}
                   onChange={handleChange}
                 />
@@ -150,7 +147,7 @@ const ChangePassword = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md flex items-center justify-center gap-2 disabled:opacity-50"
               disabled={isLoading}
             >
               {isLoading ? <BtnLoadingAnimation /> : "Reset Password"}
