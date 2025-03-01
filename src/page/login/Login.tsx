@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import BtnLoadingAnimation from "@/componets/btnLoadingAnimation/btnLoadingAnimation";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const router = useRouter();
@@ -33,27 +33,33 @@ const Login = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-md">
-        <div className="relative transform overflow-hidden rounded-xl bg-white p-8 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl border border-gray-200">
-          {/* Logo */}
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white vie-blue-100 to-blue-200 px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="w-full max-w-md"
+      >
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="relative transform overflow-hidden rounded-xl bg-white p-8 shadow-lg transition-all duration-300 border border-gray-200 hover:shadow-xl"
+        >
           <div className="text-center">
             <Image
               src="/img/logo/logo.png"
               alt="Company Logo"
-              width={64}
+              width={800}
               height={64}
               priority
               className="mx-auto h-16 w-auto"
             />
             <h2 className="mt-4 text-2xl font-bold tracking-tight text-gray-900">
-              Sign In
+              Sign In to Your Account
             </h2>
           </div>
 
-          {/* Form */}
           <div className="mt-6 space-y-5">
-            {/* Email Input */}
             <div className="space-y-2">
               <label
                 htmlFor="email"
@@ -69,14 +75,13 @@ const Login = () => {
                 value={formData.email}
                 required
                 autoComplete="email"
-                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 onChange={(e) =>
                   setFormData((prev) => ({ ...prev, email: e.target.value }))
                 }
               />
             </div>
 
-            {/* Password Input */}
             <div className="space-y-2">
               <label
                 htmlFor="password"
@@ -93,7 +98,7 @@ const Login = () => {
                 required
                 autoComplete="current-password"
                 minLength={6}
-                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 onChange={(e) =>
                   setFormData((prev) => ({ ...prev, password: e.target.value }))
                 }
@@ -101,35 +106,34 @@ const Login = () => {
               <div className="flex justify-end">
                 <Link
                   href="/forgot-password"
-                  className="text-sm font-semibold text-indigo-600 hover:text-indigo-500"
+                  className="text-sm font-semibold text-blue-600 hover:text-blue-500"
                 >
                   Forgot password?
                 </Link>
               </div>
             </div>
 
-            {/* Sign In Button */}
-            <button
+            <motion.button
+              whileTap={{ scale: 0.95 }}
               disabled={isLoading}
               onClick={(e) => submitHandler(e)}
-              className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md flex items-center justify-center gap-2"
+              className="w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition duration-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
-              {!isLoading ? "Sign In" : <BtnLoadingAnimation />}
-            </button>
+              {!isLoading ? "Sign In" : "Loading..."}
+            </motion.button>
           </div>
 
-          {/* Sign Up Link */}
           <p className="mt-4 text-center text-sm text-gray-600">
             Don’t have an account?{" "}
             <Link
               href="/sign-up"
-              className="font-medium text-indigo-600 hover:underline"
+              className="font-medium text-blue-600 hover:underline"
             >
               Sign Up
             </Link>
           </p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };

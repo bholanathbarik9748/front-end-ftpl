@@ -6,7 +6,7 @@ import { signUpTypes } from "./types/types";
 import toast from "react-hot-toast";
 import { decryptOTP } from "@/utils/decryptOtp";
 import { useRouter } from "next/navigation";
-import BtnLoadingAnimation from "@/componets/btnLoadingAnimation/btnLoadingAnimation";
+import BtnLoadingAnimation from "@/components/btnLoadingAnimation/btnLoadingAnimation";
 
 const SignUp = () => {
   const router = useRouter();
@@ -91,7 +91,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white vie-blue-100 to-blue-200 px-4">
       <div className="relative w-full max-w-md">
         <div className="group relative transform overflow-hidden rounded-lg bg-white p-8 shadow-lg transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl border border-gray-200">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -125,7 +125,7 @@ const SignUp = () => {
                 type="text"
                 required
                 autoComplete="name"
-                className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 value={formData.name}
                 onChange={handleInputChange}
               />
@@ -147,7 +147,7 @@ const SignUp = () => {
                 autoComplete="tel"
                 pattern="\d*"
                 inputMode="numeric"
-                className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 value={formData?.phoneNumber}
                 onChange={handleInputChange}
               />
@@ -166,7 +166,7 @@ const SignUp = () => {
                 type="email"
                 required
                 autoComplete="email"
-                className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 value={formData.email}
                 onChange={handleInputChange}
               />
@@ -185,7 +185,7 @@ const SignUp = () => {
                 type="password"
                 required
                 autoComplete="new-password"
-                className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                 value={formData.password}
                 onChange={handleInputChange}
               />
@@ -205,9 +205,9 @@ const SignUp = () => {
                   type="password"
                   required
                   autoComplete="new-password"
-                  className={`block w-full rounded-md border ${
+                  className={`block w-full rounded-md border  ${
                     passwordError ? "border-red-500" : "border-gray-300"
-                  } bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm`}
+                  } px-3 py-2 border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm`}
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
                 />
@@ -242,7 +242,7 @@ const SignUp = () => {
                   required
                   className={`block w-full rounded-md border ${
                     otpError ? "border-red-500" : "border-gray-300"
-                  } bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm`}
+                  } bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm`}
                   value={formData.otp}
                   onChange={handleOtpChange}
                 />
@@ -260,7 +260,7 @@ const SignUp = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md flex items-center justify-center gap-2"
+                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-md flex items-center justify-center gap-2"
                 >
                   {!isLoading ? "Sign Up" : <BtnLoadingAnimation />}
                 </button>
@@ -271,7 +271,7 @@ const SignUp = () => {
                   type="button"
                   disabled={isLoading}
                   onClick={handleSendOtp}
-                  className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md flex items-center justify-center gap-2"
+                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-md flex items-center justify-center gap-2"
                 >
                   {!isLoading ? "Verify email" : <BtnLoadingAnimation />}
                 </button>
