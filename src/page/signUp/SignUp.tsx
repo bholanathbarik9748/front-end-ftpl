@@ -116,10 +116,11 @@ const SignUp = () => {
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-900"
               >
-                Name
+                Name <span className="text-red-500">*</span>
               </label>
               <input
                 id="name"
+                placeholder="Enter your name"
                 name="name"
                 type="text"
                 required
@@ -135,11 +136,12 @@ const SignUp = () => {
                 htmlFor="phoneNumber"
                 className="block text-sm font-medium text-gray-900"
               >
-                Phone
+                Phone <span className="text-red-500">*</span>
               </label>
               <input
                 id="phoneNumber"
                 name="phoneNumber"
+                placeholder="Enter your phone number"
                 type="text"
                 maxLength={15}
                 required
@@ -157,12 +159,13 @@ const SignUp = () => {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-900"
               >
-                Email Address
+                Email Address <span className="text-red-500">*</span>
               </label>
               <input
                 id="email"
                 name="email"
                 type="email"
+                placeholder="Enter your email"
                 required
                 autoComplete="email"
                 className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
@@ -176,12 +179,13 @@ const SignUp = () => {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-900"
               >
-                Password
+                Password <span className="text-red-500">*</span>
               </label>
               <input
                 id="password"
                 name="password"
                 type="password"
+                placeholder="Enter your password"
                 required
                 autoComplete="new-password"
                 className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
@@ -195,11 +199,12 @@ const SignUp = () => {
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-900"
               >
-                Confirm Password
+                Confirm Password <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
                   id="confirmPassword"
+                  placeholder="Enter your confirm password"
                   name="confirmPassword"
                   type="password"
                   required
@@ -230,18 +235,19 @@ const SignUp = () => {
                   htmlFor="otp"
                   className="block text-sm font-medium text-gray-900"
                 >
-                  OTP
+                  OTP <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="otp"
                   name="otp"
+                  placeholder="Enter your otp"
                   autoComplete="tel"
                   pattern="\d*"
                   inputMode="numeric"
                   required
                   className={`block w-full rounded-md border ${
                     otpError ? "border-red-500" : "border-gray-300"
-                  } bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm`}
+                  } border-gray-300 bg-gray-50 px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm`}
                   value={formData.otp}
                   onChange={handleOtpChange}
                 />
