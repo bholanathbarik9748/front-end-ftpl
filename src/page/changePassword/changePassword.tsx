@@ -6,6 +6,7 @@ import BtnLoadingAnimation from "@/components/btnLoadingAnimation/btnLoadingAnim
 import { useParams } from "next/navigation";
 import { changePasswordTypes } from "./types/types";
 import { sendEmailForgotPassword } from "./services";
+import onlyLogo from "../../assets/main_only_logo.png";
 
 const ChangePassword = () => {
   const params = useParams();
@@ -64,15 +65,15 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white vie-blue-100 to-blue-200 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white vie-primary_light to-primary_mid px-4">
       <div className="w-full max-w-md">
         <div className="relative transform overflow-hidden rounded-xl bg-white p-8 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl border border-gray-200">
           {/* Logo */}
           <div className="text-center">
             <Image
-              src="/img/logo/logo.png"
+              src={onlyLogo}
               alt="Company Logo"
-              width={64}
+              width={800}
               height={64}
               priority
               className="mx-auto h-16 w-auto"
@@ -88,45 +89,46 @@ const ChangePassword = () => {
           {/* Form */}
           <form onSubmit={submitHandler} className="mt-6 space-y-5">
             {/* New Password Input */}
-            <div>
+            <div className="space-y-2">
               <label
                 htmlFor="newPassword"
                 className="block text-sm font-medium text-gray-900"
               >
-                Create a New Password
+                Create a New Password <span className="text-red-500">*</span>
               </label>
               <input
                 id="newPassword"
+                placeholder="Enter your password"
                 name="newPassword"
                 type="password"
                 required
                 autoComplete="new-password"
-                className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-primary_dark focus:ring-primary_dark sm:text-sm"
                 value={formData.newPassword}
                 onChange={handleChange}
               />
             </div>
 
             {/* Confirm Password Input */}
-            <div>
+            <div className="space-y-2">
               <label
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-900"
               >
-                Confirm Your New Password
+                Confirm Your New Password{" "}
+                <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
                   id="confirmPassword"
+                  placeholder="Enter your confirm password"
                   name="confirmPassword"
                   type="password"
                   required
                   autoComplete="new-password"
-                  className={`block w-full rounded-md border ${
-                    passwordMatch === false
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm`}
+                  className={`block w-full rounded-md border  ${
+                    passwordMatch ? "border-red-500" : "border-gray-300"
+                  } px-3 py-2 border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary_dark focus:ring-primary_dark sm:text-sm`}
                   value={formData.confirmPassword}
                   onChange={handleChange}
                 />
@@ -147,7 +149,7 @@ const ChangePassword = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full px-4 py-2 bg-primary_dark text-white rounded-md flex items-center justify-center gap-2 disabled:opacity-50"
               disabled={isLoading}
             >
               {isLoading ? <BtnLoadingAnimation /> : "Reset Password"}
