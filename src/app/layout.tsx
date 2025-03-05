@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
-console.log(process.env.APP_NAME);
 export const metadata: Metadata = {
   title: process.env.APP_NAME,
 };
