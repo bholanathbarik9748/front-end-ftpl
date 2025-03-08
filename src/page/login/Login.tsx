@@ -7,6 +7,8 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import onlyLogo from "../../assets/main_only_logo.png";
+import BtnLoadingAnimation from "@/components/btnLoadingAnimation/btnLoadingAnimation";
 
 const Login = () => {
   const router = useRouter();
@@ -33,7 +35,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white vie-blue-100 to-blue-200 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white vie-primary_light to-primary_mid px-4">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -47,7 +49,7 @@ const Login = () => {
         >
           <div className="text-center">
             <Image
-              src="/img/logo/logo.png"
+              src={onlyLogo}
               alt="Company Logo"
               width={800}
               height={64}
@@ -75,7 +77,7 @@ const Login = () => {
                 value={formData.email}
                 required
                 autoComplete="email"
-                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-primary_dark focus:ring-primary_dark sm:text-sm"
                 onChange={(e) =>
                   setFormData((prev) => ({ ...prev, email: e.target.value }))
                 }
@@ -98,7 +100,7 @@ const Login = () => {
                 required
                 autoComplete="current-password"
                 minLength={6}
-                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-primary_dark focus:ring-primary_dark sm:text-sm"
                 onChange={(e) =>
                   setFormData((prev) => ({ ...prev, password: e.target.value }))
                 }
@@ -106,7 +108,7 @@ const Login = () => {
               <div className="flex justify-end">
                 <Link
                   href="/forgot-password"
-                  className="text-sm font-semibold text-blue-600 hover:text-blue-500"
+                  className="text-sm font-semibold text-primary_dark hover:text-primary_dark"
                 >
                   Forgot password?
                 </Link>
@@ -117,9 +119,9 @@ const Login = () => {
               whileTap={{ scale: 0.95 }}
               disabled={isLoading}
               onClick={(e) => submitHandler(e)}
-              className="w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition duration-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="w-full px-4 py-2 bg-primary_dark text-white rounded-md flex items-center justify-center gap-2"
             >
-              {!isLoading ? "Sign In" : "Loading..."}
+              {!isLoading ? "Verify email" : <BtnLoadingAnimation />}
             </motion.button>
           </div>
 
@@ -127,7 +129,7 @@ const Login = () => {
             Don’t have an account?{" "}
             <Link
               href="/sign-up"
-              className="font-medium text-blue-600 hover:underline"
+              className="font-medium text-primary_dark hover:underline"
             >
               Sign Up
             </Link>

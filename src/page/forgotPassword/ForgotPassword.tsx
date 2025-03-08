@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import BtnLoadingAnimation from "@/components/btnLoadingAnimation/btnLoadingAnimation";
 import { forgotPasswordChangePassword } from "./services";
+import onlyLogo from "../../assets/main_only_logo.png";
 
 const ForgotPassword = () => {
   const router = useRouter();
@@ -36,9 +37,9 @@ const ForgotPassword = () => {
           {/* Logo */}
           <div className="text-center">
             <Image
-              src="/img/logo/logo.png"
+              src={onlyLogo}
               alt="Company Logo"
-              width={64}
+              width={800}
               height={64}
               priority
               className="mx-auto h-16 w-auto"
@@ -69,7 +70,7 @@ const ForgotPassword = () => {
                 value={email}
                 required
                 autoComplete="email"
-                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-primary_dark focus:ring-primary_dark sm:text-sm"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -77,10 +78,10 @@ const ForgotPassword = () => {
             {/* Submit Button */}
             <button
               onClick={submitHandler}
-              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md flex items-center justify-center gap-2"
+              className="w-full px-4 py-2 bg-primary_dark text-white rounded-md flex items-center justify-center gap-2"
               disabled={isLoading}
             >
-              {isLoading ? <BtnLoadingAnimation /> : "Send Reset Link"}
+              {isLoading ? <BtnLoadingAnimation /> : "Send reset link"}
             </button>
           </div>
         </div>

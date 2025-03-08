@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { decryptOTP } from "@/utils/decryptOtp";
 import { useRouter } from "next/navigation";
 import BtnLoadingAnimation from "@/components/btnLoadingAnimation/btnLoadingAnimation";
+import onlyLogo from "../../assets/main_only_logo.png";
 
 const SignUp = () => {
   const router = useRouter();
@@ -90,14 +91,14 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white vie-blue-100 to-blue-200 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white vie-primary_light to-primary_mid px-4">
       <div className="relative w-full max-w-md">
         <div className="group relative transform overflow-hidden rounded-lg bg-white p-8 shadow-lg transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl border border-gray-200">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <Image
-              src="/img/logo/logo.png"
+              src={onlyLogo}
               alt="Company Logo"
-              width={64}
+              width={800}
               height={64}
               priority
               className="mx-auto h-16 w-auto"
@@ -111,7 +112,7 @@ const SignUp = () => {
             onSubmit={handleSubmit}
             className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm space-y-6"
           >
-            <div>
+            <div className="space-y-2">
               <label
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-900"
@@ -125,13 +126,13 @@ const SignUp = () => {
                 type="text"
                 required
                 autoComplete="name"
-                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-primary_dark focus:ring-primary_dark sm:text-sm"
                 value={formData.name}
                 onChange={handleInputChange}
               />
             </div>
 
-            <div>
+            <div className="space-y-2">
               <label
                 htmlFor="phoneNumber"
                 className="block text-sm font-medium text-gray-900"
@@ -148,13 +149,13 @@ const SignUp = () => {
                 autoComplete="tel"
                 pattern="\d*"
                 inputMode="numeric"
-                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-primary_dark focus:ring-primary_dark sm:text-sm"
                 value={formData?.phoneNumber}
                 onChange={handleInputChange}
               />
             </div>
 
-            <div>
+            <div className="space-y-2">
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-900"
@@ -168,13 +169,13 @@ const SignUp = () => {
                 placeholder="Enter your email"
                 required
                 autoComplete="email"
-                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-primary_dark focus:ring-primary_dark sm:text-sm"
                 value={formData.email}
                 onChange={handleInputChange}
               />
             </div>
 
-            <div>
+            <div className="space-y-2">
               <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-900"
@@ -183,18 +184,18 @@ const SignUp = () => {
               </label>
               <input
                 id="password"
+                placeholder="Enter your password"
                 name="password"
                 type="password"
-                placeholder="Enter your password"
                 required
                 autoComplete="new-password"
-                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className="w-full rounded-md border border-gray-300 bg-gray-50 px-4 py-2 text-gray-900 shadow-sm focus:border-primary_dark focus:ring-primary_dark sm:text-sm"
                 value={formData.password}
                 onChange={handleInputChange}
               />
             </div>
 
-            <div>
+            <div className="space-y-2">
               <label
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-900"
@@ -211,7 +212,7 @@ const SignUp = () => {
                   autoComplete="new-password"
                   className={`block w-full rounded-md border  ${
                     passwordError ? "border-red-500" : "border-gray-300"
-                  } px-3 py-2 border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm`}
+                  } px-3 py-2 border-gray-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary_dark focus:ring-primary_dark sm:text-sm`}
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
                 />
@@ -230,7 +231,7 @@ const SignUp = () => {
             </div>
 
             {showOtpField && (
-              <div>
+              <div className="space-y-2">
                 <label
                   htmlFor="otp"
                   className="block text-sm font-medium text-gray-900"
@@ -247,7 +248,7 @@ const SignUp = () => {
                   required
                   className={`block w-full rounded-md border ${
                     otpError ? "border-red-500" : "border-gray-300"
-                  } border-gray-300 bg-gray-50 px-3 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm`}
+                  } border-gray-300 bg-gray-50 px-3 py-2 text-gray-900 shadow-sm focus:border-primary_dark focus:ring-primary_dark sm:text-sm`}
                   value={formData.otp}
                   onChange={handleOtpChange}
                 />
@@ -265,7 +266,7 @@ const SignUp = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-md flex items-center justify-center gap-2"
+                  className="w-full px-4 py-2 bg-primary_dark text-white rounded-md flex items-center justify-center gap-2"
                 >
                   {!isLoading ? "Sign Up" : <BtnLoadingAnimation />}
                 </button>
@@ -276,7 +277,7 @@ const SignUp = () => {
                   type="button"
                   disabled={isLoading}
                   onClick={handleSendOtp}
-                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-md flex items-center justify-center gap-2"
+                  className="w-full px-4 py-2 bg-primary_dark text-white rounded-md flex items-center justify-center gap-2"
                 >
                   {!isLoading ? "Verify email" : <BtnLoadingAnimation />}
                 </button>
