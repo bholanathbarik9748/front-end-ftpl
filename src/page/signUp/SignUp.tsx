@@ -8,6 +8,8 @@ import { decryptOTP } from "@/utils/decryptOtp";
 import { useRouter } from "next/navigation";
 import BtnLoadingAnimation from "@/components/btnLoadingAnimation/btnLoadingAnimation";
 import onlyLogo from "../../assets/main_only_logo.png";
+import Cookies from "js-cookie";
+import Link from "next/link";
 
 const SignUp = () => {
   const router = useRouter();
@@ -37,7 +39,9 @@ const SignUp = () => {
     try {
       const response = await signUpUser(formData);
       if (response?.status === "success") {
-        localStorage.setItem("access_token", response?.data?.access_token);
+        Cookies.set("access_token", response?.data?.access_token, {
+          expires: 30,
+        });
         router.push("/");
       }
     } catch (error) {
@@ -89,6 +93,12 @@ const SignUp = () => {
       setOtpError(true);
     }
   };
+
+  useEffect(() => {
+    if (Cookies.get("access_token")) {
+      router.push("/");
+    }
+  }, []);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white vie-primary_light to-primary_mid px-4">
@@ -283,6 +293,24 @@ const SignUp = () => {
                 </button>
               </div>
             )}
+
+            {isOtpSend && (
+              <p
+                className="mt-4 text-center text-sm text-gray-600"
+                onClick={handleSendOtp}
+              >
+                Re-send otp
+              </p>
+            )}
+            <p className="text-center text-sm text-gray-600 mt-4">
+              Already have an account?{" "}
+              <Link
+                href="/login"
+                className="font-medium text-primary_dark hover:underline"
+              >
+                Login
+              </Link>
+            </p>
           </form>
         </div>
       </div>

@@ -1,36 +1,39 @@
+import crypto from "crypto";
+import dotenv from "dotenv";
+
+// Load environment variables (for server-side Next.js functions)
+dotenv.config();
+
 export const decryptOTP = async (
   encryptedOTP: string
 ): Promise<string | null> => {
   try {
+    // Ensure environment variable is available
+    const secretKey = process.env.NEXT_PUBLIC_OTP_ENCRYPTION;
+
+    if (!secretKey) {
+      throw new Error("OTP_ENCRYPTION is not set in environment variables");
+    }
+
+    // Validate the encrypted OTP format
     const [ivHex, encryptedHex] = encryptedOTP.split(":");
     if (!ivHex || !encryptedHex) {
       throw new Error("Invalid encrypted OTP format");
     }
 
-    const iv = new Uint8Array(Buffer.from(ivHex, "hex"));
-    const encryptedData = new Uint8Array(Buffer.from(encryptedHex, "hex"));
-    const secretKey = process.env.OTP_ENCRYPTION;
+    const iv = Buffer.from(ivHex, "hex");
+    const encryptedData = Buffer.from(encryptedHex, "hex");
 
-    // Convert secretKey to a 32-byte key using SHA-256
-    const keyBuffer = await crypto.subtle.digest(
-      "SHA-256",
-      new TextEncoder().encode(secretKey)
-    );
-    const key = await crypto.subtle.importKey(
-      "raw",
-      keyBuffer,
-      { name: "AES-CBC" },
-      false,
-      ["decrypt"]
-    );
+    // Convert the secret key into a 32-byte key using SHA-256
+    const keyBuffer = crypto.createHash("sha256").update(secretKey).digest();
 
-    // Decrypt the OTP
-    const decryptedBuffer = await crypto.subtle.decrypt(
-      { name: "AES-CBC", iv },
-      key,
-      encryptedData
-    );
-    return new TextDecoder().decode(decryptedBuffer);
+    // Create a decipher instance
+    const decipher = crypto.createDecipheriv("aes-256-cbc", keyBuffer, iv);
+
+    let decrypted = decipher.update(encryptedData);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+
+    return decrypted.toString("utf-8");
   } catch (error) {
     console.error("Decryption error:", error);
     return null;

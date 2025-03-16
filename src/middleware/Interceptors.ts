@@ -4,8 +4,8 @@ import axios, {
   AxiosError,
   InternalAxiosRequestConfig,
 } from "axios";
-
 const API_BASE_URL = "https://backend-ftpl-production.up.railway.app/api/v1";
+import Cookies from "js-cookie";
 
 const interceptorInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -14,7 +14,7 @@ const interceptorInstance = axios.create({
 // Request interceptor for adding the bearer token
 interceptorInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-    const token = localStorage.getItem("access_token");
+    const token = Cookies.get("access_token");
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

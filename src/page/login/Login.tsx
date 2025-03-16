@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { loginTypes } from "./types/types";
 import { loginService } from "./services";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import onlyLogo from "../../assets/main_only_logo.png";
 import BtnLoadingAnimation from "@/components/btnLoadingAnimation/btnLoadingAnimation";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const router = useRouter();
@@ -24,7 +25,9 @@ const Login = () => {
     try {
       const response = await loginService(formData);
       if (response?.status === "success") {
-        localStorage.setItem("access_token", response?.data?.access_token);
+        Cookies.set("access_token", response?.data?.access_token, {
+          expires: 30,
+        });
         router.push("/");
       }
     } catch (error: unknown) {
@@ -33,6 +36,12 @@ const Login = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (Cookies.get("access_token")) {
+      router.push("/");
+    }
+  }, []);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-white vie-primary_light to-primary_mid px-4">

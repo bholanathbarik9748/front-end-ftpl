@@ -13,6 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import mainLogo from "../../assets/main_logo.png";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 const categoryList = [
   "A4 Label Sheet",
@@ -31,7 +32,7 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem("access_token")) {
+    if (Cookies.get("access_token")) {
       setIsLoggedIn(true);
     }
   }, []);
