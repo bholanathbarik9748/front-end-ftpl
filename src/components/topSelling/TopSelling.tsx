@@ -1,6 +1,4 @@
 "use client";
-
-import Link from "next/link";
 import React, { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
@@ -110,9 +108,7 @@ export const TopSelling = () => {
                   {product.originalPrice}
                 </span>
               </div>
-              
             </div>
-            
           </div>
         ))}
         {/* Previous Button */}
@@ -129,13 +125,17 @@ export const TopSelling = () => {
         <button
           onClick={nextSlide}
           className={`absolute right-0 top-1/2 transform -translate-y-1/2 p-2 bg-blue-500 text-white rounded-full shadow-md 
-          ${startIndex + 4 >= products.length ? "opacity-50 cursor-not-allowed" : ""}`}
+          ${
+            startIndex + 4 >= products.length
+              ? "opacity-50 cursor-not-allowed"
+              : ""
+          }`}
           disabled={startIndex + 4 >= products.length}
         >
           <FaChevronRight />
         </button>
       </div>
-{/* Video */}
+      {/* Video */}
       <div className="container mx-auto p-4 relative">
         <div className="content-center text-center">
           <h1 className="text-3xl font-bold py-4">VIDEOS</h1>

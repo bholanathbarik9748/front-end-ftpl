@@ -61,19 +61,17 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <ul className="hidden md:flex space-x-6 text-[16px] font-semibold text-gray-700">
-            {["Home", "Labels Shop", "Custom Labels Draw"].map(
-              (item, index) => (
-                <motion.li
-                  key={index}
-                  whileHover={{ scale: 1.05, opacity: 0.8 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <a href="#" className="hover:text-secondary_dark transition">
-                    {item}
-                  </a>
-                </motion.li>
-              )
-            )}
+            {["Home", "Newly Releases", "Bestsellers"].map((item, index) => (
+              <motion.li
+                key={index}
+                whileHover={{ scale: 1.05, opacity: 0.8 }}
+                transition={{ duration: 0.3 }}
+              >
+                <a href="#" className="hover:text-secondary_dark transition">
+                  {item}
+                </a>
+              </motion.li>
+            ))}
 
             {/* Categories Dropdown */}
             <motion.li
@@ -90,7 +88,7 @@ const Header = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute left-0 top-10 bg-white shadow-lg rounded-lg w-60 py-3 text-gray-700"
+                    className="absolute left-0 top-10 bg-white shadow-lg rounded-lg w-60 py-3 text-gray-700 z-10"
                   >
                     {categoryList.map((category, index) => (
                       <li key={index}>
