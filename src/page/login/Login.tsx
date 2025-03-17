@@ -11,9 +11,12 @@ import onlyLogo from "../../assets/main_only_logo.png";
 import BtnLoadingAnimation from "@/components/btnLoadingAnimation/btnLoadingAnimation";
 import Cookies from "js-cookie";
 import { loginSchema } from "./validation";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 const Login = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [formData, setFormData] = useState<loginTypes>({
     email: "",
     password: "",
@@ -124,26 +127,39 @@ const Login = () => {
               >
                 Password <span className="text-red-500">*</span>
               </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Enter your password"
-                value={formData.password}
-                required
-                autoComplete="current-password"
-                minLength={6}
-                className={`w-full rounded-md border px-4 py-2 text-gray-900 shadow-sm focus:ring-primary_dark sm:text-sm ${
-                  errors.password ? "border-red-500" : "border-gray-300"
-                }`}
-                onChange={(e) => {
-                  setFormData((prev) => ({
-                    ...prev,
-                    [e.target.id]: e.target.value,
-                  }));
-                  setErrors((prev) => ({ ...prev, [e.target.id]: "" }));
-                }}
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={formData.password}
+                  required
+                  autoComplete="current-password"
+                  minLength={6}
+                  className={`w-full rounded-md border px-4 py-2 text-gray-900 shadow-sm focus:ring-primary_dark sm:text-sm ${
+                    errors.password ? "border-red-500" : "border-gray-300"
+                  }`}
+                  onChange={(e) => {
+                    setFormData((prev) => ({
+                      ...prev,
+                      [e.target.id]: e.target.value,
+                    }));
+                    setErrors((prev) => ({ ...prev, [e.target.id]: "" }));
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                >
+                  {showPassword ? (
+                    <FaEyeSlash size={20} />
+                  ) : (
+                    <FaEye size={20} />
+                  )}
+                </button>
+              </div>
               {errors.password && (
                 <p className="text-red-500 text-sm">{errors.password}</p>
               )}
