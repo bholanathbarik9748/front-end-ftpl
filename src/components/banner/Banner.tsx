@@ -2,49 +2,59 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-
-const slides = [
-  {
-    image:
-      "https://images.pexels.com/photos/4836103/pexels-photo-4836103.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    title: "Discover the Beauty of Nature",
-    description:
-      "Explore breathtaking destinations and embrace the wonders of the world.",
-  },
-  {
-    image:
-      "https://images.pexels.com/photos/3082851/pexels-photo-3082851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    title: "Find Your Next Adventure",
-    description:
-      "Travel beyond borders and experience the most scenic places on Earth.",
-  },
-  {
-    image:
-      "https://images.pexels.com/photos/6832289/pexels-photo-6832289.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    title: "Escape Into Serenity",
-    description:
-      "Reconnect with nature and find peace in breathtaking landscapes.",
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import { getActiveBanner } from "./services";
+import { useRouter } from "next/navigation";
 
 export const Banner = () => {
+  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [isPaused]);
+  const {
+    data: response,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["getActiveBanner"],
+    queryFn: getActiveBanner,
+  });
 
-  const prevSlide = () =>
+  const slides = response?.data?.banners || [];
+  console.log(error);
+
+  const prevSlide = () => {
     setCurrentIndex(
       (prevIndex) => (prevIndex - 1 + slides.length) % slides.length
     );
-  const nextSlide = () =>
+  };
+
+  const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+  };
+
+  useEffect(() => {
+    if (isPaused || slides.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isPaused, slides.length]);
+
+  if (isLoading)
+    return (
+      <div className="h-[80vh] flex items-center justify-center text-white">
+        Loading...
+      </div>
+    );
+  if (error || slides.length === 0)
+    return (
+      <div className="h-[80vh] flex items-center justify-center text-white">
+        No banners available
+      </div>
+    );
 
   return (
     <div
@@ -55,8 +65,8 @@ export const Banner = () => {
       {/* Image Slider */}
       <AnimatePresence mode="wait">
         <motion.img
-          key={currentIndex}
-          src={slides[currentIndex].image}
+          key={slides[currentIndex]?.image_link}
+          src={slides[currentIndex]?.image_link}
           alt={`Slide ${currentIndex + 1}`}
           className="absolute w-full h-full object-cover top-0 brightness-[85%]"
           initial={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
@@ -72,26 +82,26 @@ export const Banner = () => {
         <div className="text-white space-y-4 sm:space-y-6 max-w-xs sm:max-w-md md:max-w-lg text-right">
           <AnimatePresence mode="wait">
             <motion.h1
-              key={slides[currentIndex].title}
+              key={slides[currentIndex]?.name}
               className="text-2xl sm:text-4xl md:text-5xl font-extrabold leading-tight"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.8 }}
             >
-              {slides[currentIndex].title}
+              {slides[currentIndex]?.name}
             </motion.h1>
           </AnimatePresence>
           <AnimatePresence mode="wait">
             <motion.p
-              key={slides[currentIndex].description}
+              key={slides[currentIndex]?.head_description}
               className="text-sm sm:text-lg md:text-xl text-gray-300 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.8, delay: 0.1 }}
             >
-              {slides[currentIndex].description}
+              {slides[currentIndex]?.head_description}
             </motion.p>
           </AnimatePresence>
           <motion.button
@@ -99,27 +109,32 @@ export const Banner = () => {
             aria-label="Explore Now"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => router.push(slides[currentIndex]?.btn_link)}
           >
             Explore Now
           </motion.button>
         </div>
       </div>
 
-      {/* Navigation Arrows (Visible on Hover) */}
-      <button
-        onClick={prevSlide}
-        className="absolute top-1/2 left-4 -translate-y-1/2 text-white bg-black/30 p-2 sm:p-3 rounded-full opacity-0 group-hover:opacity-100 transition duration-300"
-        aria-label="Previous Slide"
-      >
-        <AiOutlineLeft className="text-xl sm:text-2xl" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute top-1/2 right-4 -translate-y-1/2 text-white bg-black/30 p-2 sm:p-3 rounded-full opacity-0 group-hover:opacity-100 transition duration-300"
-        aria-label="Next Slide"
-      >
-        <AiOutlineRight className="text-xl sm:text-2xl" />
-      </button>
+      {/* Navigation Arrows */}
+      {slides.length > 1 && (
+        <>
+          <button
+            onClick={prevSlide}
+            className="absolute top-1/2 left-4 -translate-y-1/2 text-white bg-black/30 p-2 sm:p-3 rounded-full opacity-0 group-hover:opacity-100 transition duration-300"
+            aria-label="Previous Slide"
+          >
+            <AiOutlineLeft className="text-xl sm:text-2xl" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute top-1/2 right-4 -translate-y-1/2 text-white bg-black/30 p-2 sm:p-3 rounded-full opacity-0 group-hover:opacity-100 transition duration-300"
+            aria-label="Next Slide"
+          >
+            <AiOutlineRight className="text-xl sm:text-2xl" />
+          </button>
+        </>
+      )}
     </div>
   );
 };

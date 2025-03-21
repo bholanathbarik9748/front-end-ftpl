@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import QueryProvider from "@/providers/QueryProvider";
 
 export const metadata: Metadata = {
   title: process.env.APP_NAME,
@@ -8,14 +9,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body>
-        <Toaster position="top-center" reverseOrder={false} />
-        {children}
+        <QueryProvider>
+          <Toaster position="top-center" reverseOrder={false} />
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );

@@ -52,6 +52,9 @@ const Login = () => {
         Cookies.set("access_token", response?.data?.access_token, {
           expires: 30,
         });
+        Cookies.set("refresh_token", response?.data?.refresh_token, {
+          expires: 365,
+        });
         router.push("/");
       }
     } catch (error: unknown) {
